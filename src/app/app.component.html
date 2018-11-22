@@ -1,8 +1,8 @@
 
-<div fxLayout="column" fxLayoutAlign="space-around center">
+<div fxLayout="column">
   <div fxFill *ngFor="let row of bingoGame.rows">
-      <div *ngFor="let item of row.items" fxLayout="row" fxLayoutAlign="space-around center" fxFlex="20">
-          <div fxFlex="20">
+      <div *ngFor="let item of row.items" fxLayout="row" fxFlex>
+          <div fxFlex>
               <button mat-button class="bingoButton" (click)="clickBingoItem(item)">{{item.title}}</button>
               {{item.isSelected}}
           </div>

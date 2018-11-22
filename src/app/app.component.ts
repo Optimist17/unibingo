@@ -1,3 +1,4 @@
+import { AllTitles } from './helper/titles';
 import { Component } from '@angular/core';
 import { IBingoGame } from './models/service/ibingo-game';
 import { IBingoItem } from './models/service/ibingo-item';
@@ -8,89 +9,45 @@ import { IBingoItemRow } from './models/service/ibingo-item-row';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent extends AllTitles {
   public bingoGame: IBingoGame;
   public finished: boolean;
-
   //public blub: string[] = Titles;
   
   constructor() {
+    super();
     this.loadData();
   }
 
   loadData() {
+    this.bingoGame = this.generateBingoGame(3,3);
+  }
 
-    const bingoRow1: IBingoItemRow = {
+  generateBingoGame(height,width): IBingoGame {
+    let game: IBingoGame = {
       id: 1,
-      items: [
-        {
-          id: 1,
-          title: 'hallo',
-          isSelected: false
-        },
-        {
-          id: 2,
-          title: 'moin',
-          isSelected: false
-        },
-        {
-          id: 3,
-          title: 'blub',
-          isSelected: false
-        }
-      ]
+      rows: new Array(),
+      rowAmount: height,
+      columnAmount: width
     }
 
-    const bingoRow2: IBingoItemRow = {
-      id: 2,
-      items: [
-        {
-          id: 4,
-          title: 'hallo',
-          isSelected: false
-        },
-        {
-          id: 5,
-          title: 'moin',
-          isSelected: false
-        },
-        {
-          id: 6,
-          title: 'blub',
+    for (let i = 0; i < height; i++) {
+      let row: IBingoItemRow = {
+        id: i,
+        items: new Array()
+      }
+      for(let j = 0; j < width; j++) {
+        let item: IBingoItem = {
+          id: i*height,
+          title: this.titles[Math.floor(Math.random()*this.titles.length)],
           isSelected: false
         }
-      ]
+        row.items.push(item);
+      }
+      game.rows.push(row);
     }
 
-    const bingoRow3: IBingoItemRow = {
-      id: 3,
-      items: [
-        {
-          id: 7,
-          title: 'hallo',
-          isSelected: false
-        },
-        {
-          id: 8,
-          title: 'moin',
-          isSelected: false
-        },
-        {
-          id: 9,
-          title: 'blub',
-          isSelected: false
-        }
-      ]
-    }
-
-    const bingoGame: IBingoGame = {
-      id: 1,
-      rows: [bingoRow1,bingoRow2,bingoRow3],
-      columnAmount: 3,
-      rowAmount: 3
-    };
-
-    this.bingoGame = bingoGame;
+    return game;
   }
 
   clickBingoItem(item: IBingoItem) {

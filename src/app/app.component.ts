@@ -3,6 +3,10 @@ import { Component } from '@angular/core';
 import { IBingoGame } from './models/service/ibingo-game';
 import { IBingoItem } from './models/service/ibingo-item';
 import { IBingoItemRow } from './models/service/ibingo-item-row';
+import { BingoDialogOptions } from './dialogs/bingo-dialog/bingo-dialog-options';
+import { MatDialog } from '@angular/material';
+import { BingoDialogComponent } from './dialogs/bingo-dialog/bingo-dialog.component';
+import { Observable, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -12,14 +16,22 @@ import { IBingoItemRow } from './models/service/ibingo-item-row';
 export class AppComponent extends AllTitles {
   public bingoGame: IBingoGame;
   public finished: boolean;
+  private _bingo: Subject<boolean>;
   //public blub: string[] = Titles;
   
-  constructor() {
+  constructor(
+    private _dialog: MatDialog
+  ) {
     super();
     this.loadData();
+
+    this._bingo.subscribe((result) => {
+      this.openDialog();
+    })
   }
 
   loadData() {
+    this._bingo = new Subject<boolean>();
     this.bingoGame = this.generateBingoGame(3,3);
   }
 
@@ -66,6 +78,7 @@ export class AppComponent extends AllTitles {
         (item.isSelected) ? itemCounterHorizontal++ : itemCounterHorizontal = 0;
         if (itemCounterHorizontal == row.items.length) {
           this.finished = true;
+          this._bingo.next(true);
         }
 
         if (row.id == 1) {
@@ -88,6 +101,16 @@ export class AppComponent extends AllTitles {
 
     if (itemCounterVertical.length != 0) {
       this.finished = true;
+      this._bingo.next(true);
     }
+  }
+
+  openDialog(): void {
+    const dialogOptions: BingoDialogOptions = {
+
+    }
+    const dialogRef = this._dialog.open(BingoDialogComponent, {
+      data: dialogOptions
+    });
   }
 }

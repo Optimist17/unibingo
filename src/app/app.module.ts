@@ -4,18 +4,28 @@ import {FlexLayoutModule} from '@angular/flex-layout';
 
 import { AppComponent } from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
-import {MatButtonModule, MatCheckboxModule} from '@angular/material';
+import {
+  MatButtonModule, 
+  MatCheckboxModule,
+  MatDialogModule
+} from '@angular/material';
+import { BingoDialogComponent } from './dialogs/bingo-dialog/bingo-dialog.component';
 
 @NgModule({
+  entryComponents: [
+    BingoDialogComponent
+  ],
   declarations: [
-    AppComponent
+    AppComponent,
+    BingoDialogComponent
   ],
   imports: [
     FlexLayoutModule,
     BrowserModule,
     BrowserAnimationsModule,
     MatButtonModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDialogModule
   ],
   providers: [],
   bootstrap: [AppComponent]

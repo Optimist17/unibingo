@@ -3,7 +3,7 @@
   <div fxFill *ngFor="let row of bingoGame.rows">
       <div *ngFor="let item of row.items" fxLayout="row" fxFlex>
           <div fxFlex>
-              <button mat-button class="bingoButton" (click)="clickBingoItem(item)">{{item.title}}</button>
+              <button mat-button class="bingoButton" (click)="clickBingoItem(item)" [color]="item.color">{{item.title}}</button>
               {{item.isSelected}}
           </div>
         </div>

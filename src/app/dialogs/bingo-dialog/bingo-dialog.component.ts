@@ -5,7 +5,7 @@ import { BingoDialogOptions } from './bingo-dialog-options';
 @Component({
   selector: 'app-bingo-dialog',
   templateUrl: './bingo-dialog.component.html',
-  styleUrls: ['./bingo-dialog.component.css']
+  styleUrls: ['./bingo-dialog.component.scss']
 })
 export class BingoDialogComponent implements OnInit {
 

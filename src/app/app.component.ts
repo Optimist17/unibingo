@@ -11,7 +11,7 @@ import { Observable, Subject } from 'rxjs';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent extends AllTitles {
   public bingoGame: IBingoGame;
@@ -50,9 +50,10 @@ export class AppComponent extends AllTitles {
       }
       for(let j = 0; j < width; j++) {
         let item: IBingoItem = {
-          id: i*height,
+          id: (i*height)+j,
           title: this.titles[Math.floor(Math.random()*this.titles.length)],
-          isSelected: false
+          isSelected: false,
+          color: ''
         }
         row.items.push(item);
       }
@@ -65,32 +66,33 @@ export class AppComponent extends AllTitles {
   clickBingoItem(item: IBingoItem) {
     this.finished = false;
     (!item.isSelected) ? item.isSelected = true : item.isSelected = false;
+    (item.isSelected) ? item.color = 'primary' : 'black';
 
     let itemCounterHorizontal: number = 0;
     let itemCounterVertical: number[] = new Array();
     let itemCounterVertical2: number[] = new Array();
     this.bingoGame.rows.forEach(row => {
-      row.items.forEach(item => {
-        if (item.id == 1) {
+      row.items.forEach(column => {
+        if (column.id%row.items.length==0) {
           itemCounterHorizontal = 0;
         }
 
-        (item.isSelected) ? itemCounterHorizontal++ : itemCounterHorizontal = 0;
+        (column.isSelected) ? itemCounterHorizontal++ : itemCounterHorizontal = 0;
         if (itemCounterHorizontal == row.items.length) {
           this.finished = true;
           this._bingo.next(true);
         }
 
-        if (row.id == 1) {
-          if (item.isSelected) itemCounterVertical.push(row.items.indexOf(item));
+        if (row.id == 0) {
+          if (column.isSelected) itemCounterVertical.push(row.items.indexOf(column));
         } else {
-          if (item.isSelected && itemCounterVertical.includes(row.items.indexOf(item))) {
-            itemCounterVertical2.push(row.items.indexOf(item));
+          if (column.isSelected && itemCounterVertical.includes(row.items.indexOf(column))) {
+            itemCounterVertical2.push(row.items.indexOf(column));
           }
         }
       });
 
-      if (row.id != 1) {
+      if (row.id != 0) {
         itemCounterVertical = new Array();
         itemCounterVertical2.forEach(item => {
           itemCounterVertical.push(item);
@@ -112,5 +114,10 @@ export class AppComponent extends AllTitles {
     const dialogRef = this._dialog.open(BingoDialogComponent, {
       data: dialogOptions
     });
+  }
+
+  getColor(isSelected:boolean): string {
+    if (isSelected) return "blue";
+    else return "white";
   }
 }

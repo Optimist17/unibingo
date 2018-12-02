@@ -7,7 +7,8 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {
   MatButtonModule, 
   MatCheckboxModule,
-  MatDialogModule
+  MatDialogModule,
+  MatRippleModule
 } from '@angular/material';
 import { BingoDialogComponent } from './dialogs/bingo-dialog/bingo-dialog.component';
 
@@ -25,7 +26,8 @@ import { BingoDialogComponent } from './dialogs/bingo-dialog/bingo-dialog.compon
     BrowserAnimationsModule,
     MatButtonModule,
     MatCheckboxModule,
-    MatDialogModule
+    MatDialogModule,
+    MatRippleModule
   ],
   providers: [],
   bootstrap: [AppComponent]

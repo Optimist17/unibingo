@@ -32,7 +32,7 @@ export class AppComponent extends AllTitles {
 
   loadData() {
     this._bingo = new Subject<boolean>();
-    this.bingoGame = this.generateBingoGame(3,3);
+    this.bingoGame = this.generateBingoGame(5,5);
   }
 
   generateBingoGame(height,width): IBingoGame {
@@ -66,7 +66,7 @@ export class AppComponent extends AllTitles {
   clickBingoItem(item: IBingoItem) {
     this.finished = false;
     (!item.isSelected) ? item.isSelected = true : item.isSelected = false;
-    (item.isSelected) ? item.color = 'primary' : 'black';
+    (item.isSelected) ? item.color = 'primary' : item.color = '';
 
     let itemCounterHorizontal: number = 0;
     let itemCounterVertical: number[] = new Array();
@@ -114,10 +114,5 @@ export class AppComponent extends AllTitles {
     const dialogRef = this._dialog.open(BingoDialogComponent, {
       data: dialogOptions
     });
-  }
-
-  getColor(isSelected:boolean): string {
-    if (isSelected) return "blue";
-    else return "white";
   }
 }

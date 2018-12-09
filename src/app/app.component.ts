@@ -1,5 +1,5 @@
 import { AllTitles } from './helper/titles';
-import { Component } from '@angular/core';
+import { Component, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { IBingoGame } from './models/service/ibingo-game';
 import { IBingoItem } from './models/service/ibingo-item';
 import { IBingoItemRow } from './models/service/ibingo-item-row';
@@ -7,27 +7,43 @@ import { BingoDialogOptions } from './dialogs/bingo-dialog/bingo-dialog-options'
 import { MatDialog } from '@angular/material';
 import { BingoDialogComponent } from './dialogs/bingo-dialog/bingo-dialog.component';
 import { Observable, Subject } from 'rxjs';
+import { MediaMatcher } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent extends AllTitles {
+export class AppComponent extends AllTitles implements OnDestroy {
   public bingoGame: IBingoGame;
   public finished: boolean;
   private _bingo: Subject<boolean>;
   //public blub: string[] = Titles;
+
+  mobileQuery: MediaQueryList;
+
+  private _mobileQueryListener: () => void;
   
   constructor(
-    private _dialog: MatDialog
+    private _dialog: MatDialog,
+    changeDetectorRef: ChangeDetectorRef, 
+    media: MediaMatcher
   ) {
     super();
+
+    this.mobileQuery = media.matchMedia('(max-width: 600px)');
+    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
+    this.mobileQuery.addListener(this._mobileQueryListener);
+
     this.loadData();
 
     this._bingo.subscribe((result) => {
       this.openDialog();
     })
+  }
+
+  ngOnDestroy(): void {
+    this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 
   loadData() {

@@ -8,9 +8,16 @@ import {
   MatButtonModule, 
   MatCheckboxModule,
   MatDialogModule,
-  MatRippleModule
+  MatRippleModule,
+  MatToolbarModule,
+  MatIconModule,
+  MatSidenavModule,
+  MatDividerModule,
+  MatListModule
 } from '@angular/material';
 import { BingoDialogComponent } from './dialogs/bingo-dialog/bingo-dialog.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
 
 @NgModule({
   entryComponents: [
@@ -18,7 +25,9 @@ import { BingoDialogComponent } from './dialogs/bingo-dialog/bingo-dialog.compon
   ],
   declarations: [
     AppComponent,
-    BingoDialogComponent
+    BingoDialogComponent,
+    ToolbarComponent,
+    SidenavComponent
   ],
   imports: [
     FlexLayoutModule,
@@ -27,7 +36,12 @@ import { BingoDialogComponent } from './dialogs/bingo-dialog/bingo-dialog.compon
     MatButtonModule,
     MatCheckboxModule,
     MatDialogModule,
-    MatRippleModule
+    MatRippleModule,
+    MatToolbarModule,
+    MatIconModule,
+    MatSidenavModule,
+    MatDividerModule,
+    MatListModule
   ],
   providers: [],
   bootstrap: [AppComponent]

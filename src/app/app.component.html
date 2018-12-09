@@ -1,8 +1,29 @@
-<div fxLayout="column" fxLayoutAlign=" stretch" fxLayoutGap="10px">
-    <div fxFill fxLayoutGap="20px" *ngFor="let row of bingoGame.rows" style="max-width: 500px">
-        <div fxLayout="row" fxLayoutAlign="center stretch" fxLayoutGap="10px" >
-            <div matRipple #div [style.background-color]="item.isSelected ? 'lightblue' :'lightgray'" (click)="clickBingoItem(item)" fxFlex="33" *ngFor="let item of row.items" (window:resize)="0" [ngStyle]="{'height.px': div.offsetWidth }" fxLayout="row" fxLayoutAlign="center center" class="mat-title" style="font-size: 1.5vw;">{{item.title}}</div>
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+    <mat-toolbar color="primary" class="example-toolbar">
+      <button mat-icon-button (click)="snav.toggle()">
+        <mat-icon>menu</mat-icon>
+      </button>
+      <app-toolbar></app-toolbar>
+    </mat-toolbar>
+
+    <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="0">
+      <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="false" fixedTopGap="56"
+        style="min-width: 256px">
+        <app-sidenav></app-sidenav>
+      </mat-sidenav>
+    
+        <mat-sidenav-content>
+          <!-- <router-outlet></router-outlet> -->
+          <div fxLayout="column" fxLayoutAlign=" stretch" fxLayoutGap="10px">
+            <div fxFill fxLayoutGap="20px" *ngFor="let row of bingoGame.rows" style="max-width: 500px">
+                <div fxLayout="row" fxLayoutAlign="center stretch" fxLayoutGap="10px" >
+                    <div matRipple #div [style.background-color]="item.isSelected ? 'lightblue' :'lightgray'" (click)="clickBingoItem(item)" fxFlex="33" *ngFor="let item of row.items" (window:resize)="0" [ngStyle]="{'height.px': div.offsetWidth }" fxLayout="row" fxLayoutAlign="center center" class="mat-title" style="font-size: 1.5vw;">{{item.title}}</div>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
+        
+        </mat-sidenav-content>
+      </mat-sidenav-container>
+  </div>
+
 

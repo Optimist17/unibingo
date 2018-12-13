@@ -18,6 +18,8 @@ export class AppComponent extends AllTitles implements OnDestroy {
   public bingoGame: IBingoGame;
   public finished: boolean;
   private _bingo: Subject<boolean>;
+  public round: number;
+  public maxRound: number;
   //public blub: string[] = Titles;
 
   mobileQuery: MediaQueryList;
@@ -49,6 +51,8 @@ export class AppComponent extends AllTitles implements OnDestroy {
   loadData() {
     this._bingo = new Subject<boolean>();
     this.bingoGame = this.generateBingoGame(5,5);
+    this.round = 1;
+    this.maxRound = 3;
   }
 
   generateBingoGame(height,width): IBingoGame {
@@ -125,10 +129,16 @@ export class AppComponent extends AllTitles implements OnDestroy {
 
   openDialog(): void {
     const dialogOptions: BingoDialogOptions = {
-
+      round: this.round,
+      maxRounds: this.maxRound
     }
     const dialogRef = this._dialog.open(BingoDialogComponent, {
       data: dialogOptions
     });
+
+    dialogRef.afterClosed().subscribe(() => {
+      (this.round != this.maxRound) ? this.round += 1 : this.round = 1;
+      this.bingoGame = this.generateBingoGame(5,5);
+    })
   }
 }

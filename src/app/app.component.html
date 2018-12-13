@@ -14,10 +14,10 @@
     
         <mat-sidenav-content>
           <!-- <router-outlet></router-outlet> -->
-          <div fxLayout="column" fxLayoutAlign=" stretch" fxLayoutGap="10px">
-            <div fxFill fxLayoutGap="20px" *ngFor="let row of bingoGame.rows" style="max-width: 500px">
-                <div fxLayout="row" fxLayoutAlign="center stretch" fxLayoutGap="10px" >
-                    <div matRipple #div [style.background-color]="item.isSelected ? 'lightblue' :'lightgray'" (click)="clickBingoItem(item)" fxFlex="33" *ngFor="let item of row.items" (window:resize)="0" [ngStyle]="{'height.px': div.offsetWidth }" fxLayout="row" fxLayoutAlign="center center" class="mat-title" style="font-size: 1.5vw;">{{item.title}}</div>
+          <div fxLayout="column">
+            <div fxFill  *ngFor="let row of bingoGame.rows" style="max-width: 500px">
+                <div fxLayout="row" fxLayoutGap="10px" >
+                    <div matRipple #div [style.background-color]="item.isSelected ? 'lightblue' :'lightgray'" (click)="clickBingoItem(item)" fxFlex="33" *ngFor="let item of row.items" (window:resize)="0" [ngStyle]="{'height.px': div.offsetWidth }" fxLayout="row" fxLayoutAlign="center center" class="mat-title" style="font-size: 1.5vw; line-height: 120%; padding: 1.2vw;">{{item.title}}</div>
                 </div>
             </div>
         </div>

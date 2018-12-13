@@ -1,8 +1,13 @@
 <h1 mat-dialog-title>Bingo!!!</h1>
 <div mat-dialog-content>
-  <p>Sie haben Gewonnen</p>
+  <div *ngIf="data.round < data.maxRounds">
+    <p> Sie haben {{data.round}}/{{data.maxRounds}} Runden geschafft.</p>
+  </div>
+  <div *ngIf="data.round == data.maxRounds">
+    <p>Sie haben gewonnen!!!</p>
+  </div>
 </div>
 <div mat-dialog-actions>
-  <button mat-button cdkFocusInitial (click)="finish()">Ok</button>
+  <button mat-button cdkFocusInitial (click)="finish()">Weiter</button>
 </div>
 

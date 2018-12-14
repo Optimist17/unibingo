@@ -56,6 +56,7 @@ export class AppComponent extends AllTitles implements OnDestroy {
   }
 
   generateBingoGame(height,width): IBingoGame {
+    let entrys: string[] = this.titles;
     let game: IBingoGame = {
       id: 1,
       rows: new Array(),
@@ -71,11 +72,12 @@ export class AppComponent extends AllTitles implements OnDestroy {
       for(let j = 0; j < width; j++) {
         let item: IBingoItem = {
           id: (i*height)+j,
-          title: this.titles[Math.floor(Math.random()*this.titles.length)],
+          title: entrys[Math.floor(Math.random()*entrys.length)],
           isSelected: false,
           color: ''
         }
         row.items.push(item);
+        entrys.splice(entrys.indexOf(item.title),1);
       }
       game.rows.push(row);
     }

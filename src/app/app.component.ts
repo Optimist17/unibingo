@@ -56,7 +56,10 @@ export class AppComponent extends AllTitles implements OnDestroy {
   }
 
   generateBingoGame(height,width): IBingoGame {
-    let entrys: string[] = this.titles;
+    let entrys: string[] = new Array();
+    this.titles.forEach(element => {
+      entrys.push(element);
+    });
     let game: IBingoGame = {
       id: 1,
       rows: new Array(),

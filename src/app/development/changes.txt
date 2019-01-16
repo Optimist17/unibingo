@@ -1,2 +1,9 @@
-- Diagonal Bingo
-- Einträge maximal 1mal vorhanden
+kurzfristig
+- Homebildschirm
+- Neues Spiel
+    - Matrixgröße einstellen
+    - Rundenanzahl
+- gewonnen überdenken
+
+langfristig
+- Statistiken

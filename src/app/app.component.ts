@@ -102,6 +102,7 @@ export class AppComponent extends AllTitles implements OnDestroy {
           itemCounterHorizontal = 0;
         }
 
+        // Horizontal
         (column.isSelected) ? itemCounterHorizontal++ : itemCounterHorizontal = 0;
         if (itemCounterHorizontal == row.items.length) {
           this.finished = true;
@@ -117,6 +118,7 @@ export class AppComponent extends AllTitles implements OnDestroy {
         }
       });
 
+      // Vertikal
       if (row.id != 0) {
         itemCounterVertical = new Array();
         itemCounterVertical2.forEach(item => {
@@ -127,6 +129,23 @@ export class AppComponent extends AllTitles implements OnDestroy {
     });
 
     if (itemCounterVertical.length != 0) {
+      this.finished = true;
+      this._bingo.next(true);
+    }
+
+    // Diagonal
+
+    let isDiagonal1Valid = true;
+    let isDiaonal2Valid = true;
+    for (let i = 0; i < this.bingoGame.rows.length; i++) {
+     if (!this.bingoGame.rows[i].items[i].isSelected) {
+       isDiagonal1Valid = false;
+     }
+     if (!this.bingoGame.rows[this.bingoGame.rows.length-(i+1)].items[i].isSelected) {
+       isDiaonal2Valid = false;
+     }
+    }
+    if (isDiagonal1Valid || isDiaonal2Valid) {
       this.finished = true;
       this._bingo.next(true);
     }

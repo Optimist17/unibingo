@@ -4,6 +4,8 @@ kurzfristig
     - Matrixgröße einstellen
     - Rundenanzahl
 - gewonnen überdenken
+- während des Spiels: Rechte Sidebar mit Informationen über das Spiel (Runde 1/3, Spielername, etc.)
+    Smartphone eingefahren, erreichbar über Navigationsleiste; Laptop ausgefahren, nicht einfahrbar
 
 langfristig
 - Statistiken
